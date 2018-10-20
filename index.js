@@ -231,10 +231,12 @@ senseHat.Joystick.getJoystick().then(joystick => {
                     }
                     const Ldigit = numbers[L];
 
-                    senseHat.Leds.setPixels(Rdigit);
+                    /*  senseHat.Leds.setPixels(Rdigit);
                     setTimeout(function() {
                         senseHat.Leds.setPixels(Ldigit);
-                    }, 5000);
+                    }, 5000); */
+                    const matrix = Rdigit || Ldigit;
+                    senseHat.Leds.setPixels(matrix)
 
 
                     console.log("Temperature is: ", Math.round(data.temperature));
