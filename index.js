@@ -232,7 +232,6 @@ senseHat.Joystick.getJoystick().then(joystick => {
                     }, 5000);
 
 
-                    senseHat.Leds.setPixels(matrix);
                     console.log("Temperature is: ", Math.round(data.temperature));
                 });
                 break;
