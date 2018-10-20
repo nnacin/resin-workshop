@@ -194,12 +194,10 @@ const drawScreen = () => {
     const dayOfWeek = moment().format('dddd');
     const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-    //senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
-    senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
+    senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
+    //senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
 
-    setTimeout(function() {
-        senseHat.Leds.clear([0, 0, 0]);
-    }, 2500)
+    
 
 };
 
@@ -215,7 +213,7 @@ const showValue = (data) => {
             numbers[L].push(el);
         }
     }
-    
+
     const R = data % 10;
     const Rdigit = numbers[R];
 
