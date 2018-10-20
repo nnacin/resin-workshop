@@ -93,7 +93,7 @@ const drawScreen = () => {
 };
 
 // Refresh the screen every 2 seconds
-let daysInterval = setInterval(drawScreen, 2000);
+let daysInterval = setInterval(drawScreen, 10000);
 const IMU = new imu.IMU();
 
 senseHat.Joystick.getJoystick().then(joystick => {
