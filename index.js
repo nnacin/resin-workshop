@@ -1,21 +1,90 @@
 const senseHat = require('node-sense-hat');
-const _ = require('lodash');
+const moment = require('moment');
+
+const O = [0, 0, 0];
+const X = [255, 0, 0];
+
+const daysOfWeek = {
+    'Monday': [
+        X, O, O, O, O, O, O, X,
+        X, X, O, O, O, O, X, X,
+        X, O, X, O, O, X, O, X,
+        X, O, O, X, X, O, O, X,
+        X, O, O, O, O, O, O, X,
+        X, O, O, O, O, O, O, X,
+        X, O, O, O, O, O, O, X,
+        X, O, O, O, O, O, O, X,
+    ],
+    'Tuesday': [
+        X, X, X, X, X, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, X, X,
+    ],
+    'Wednesday': [
+        X, O, O, O, O, O, O, X,
+        X, O, O, O, O, O, O, X,
+        X, O, O, O, O, O, O, X,
+        X, O, O, X, X, O, O, X,
+        X, O, O, X, X, O, O, X,
+        X, O, O, X, X, O, O, X,
+        X, O, O, X, X, O, O, X,
+        X, X, X, X, X, X, X, X,
+    ],
+    'Thursday': [
+        X, X, X, X, X, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, X, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, O, X,
+        O, O, X, O, O, X, O, X,
+    ],
+    'Friday': [
+        X, X, X, X, X, O, O, O,
+        X, O, O, O, O, O, O, O,
+        X, O, O, O, O, O, O, O,
+        X, X, X, O, O, O, O, O,
+        X, O, O, O, O, O, O, O,
+        X, O, O, O, O, O, O, O,
+        X, O, O, O, O, O, O, O,
+        X, O, O, O, O, O, O, O,
+    ],
+    'Saturday': [
+        X, X, X, X, X, X, X, X,
+        X, O, O, O, X, O, O, X,
+        X, O, O, O, X, O, O, X,
+        X, X, X, X, X, X, X, X,
+        O, O, O, X, X, O, O, X,
+        O, O, O, X, X, O, O, X,
+        O, O, O, X, X, O, O, X,
+        X, X, X, X, X, O, O, X,
+    ],
+    'Sunday': [
+        X, X, X, X, X, O, O, X,
+        X, O, O, O, X, O, O, X,
+        X, O, O, O, X, O, O, X,
+        X, X, X, X, X, O, O, X,
+        O, O, O, X, X, O, O, X,
+        O, O, O, X, X, O, O, X,
+        O, O, O, X, X, O, O, X,
+        X, X, X, X, X, X, X, X,
+    ]
+};
 
 const drawScreen = () => {
     senseHat.Leds.clear();
 
-    x = 0;
-    y = 0;
-    while (y < 8) {
-        while (x < 8) {
-            senseHat.Leds.setPixel(x, y, [_.random(0, 255), _.random(0, 255), _.random(0, 255)]);
-            x += 1;
-        }
-        x = 0;
-        y += 1;
-    }
+    const dayOfWeek = moment().format('dddd');
+
+    senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
 
 };
 
-// Refresh the screen every 2 seconds
-setInterval(drawScreen, 2000);
+// Refresh the screen every 1 hour
+setInterval(drawScreen, 3600000);
