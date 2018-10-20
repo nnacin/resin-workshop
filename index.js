@@ -207,11 +207,19 @@ const drawScreen = () => {
 let daysInterval = setInterval(drawScreen, 5000);
 const IMU = new imu.IMU();
 
+let L = -1;
 const showValue = (data) => {
+    if (L !== -1) {
+        for (let i = 0; i < 4; i++) {
+            const el = numbers[L].shift();
+            numbers[L].push(el);
+        }
+    }
+    
     const R = data % 10;
     const Rdigit = numbers[R];
 
-    const L = Math.floor(data / 10);
+    L = Math.floor(data / 10);
     for (let i = 0; i < 4; i++) {
         const el = numbers[L].shift();
         numbers[L].push(el);
