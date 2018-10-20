@@ -197,7 +197,7 @@ const drawScreen = () => {
     senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
     //senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
 
-    
+
 
 };
 
@@ -207,22 +207,17 @@ const IMU = new imu.IMU();
 
 let L = -1;
 const showValue = (data) => {
-    if (L !== -1) {
-        for (let i = 0; i < 4; i++) {
-            const el = numbers[L].shift();
-            numbers[L].push(el);
-        }
-    }
 
     const R = data % 10;
     const Rdigit = numbers[R];
 
     L = Math.floor(data / 10);
+    const clonedNumber = Object.assign([], numbers[L]);
     for (let i = 0; i < 4; i++) {
-        const el = numbers[L].shift();
-        numbers[L].push(el);
+        const el = clonedNumber.shift();
+        clonedNumber.push(el);
     }
-    const Ldigit = numbers[L];
+    const Ldigit = clonedNumber;
 
     let matrix = new Array(64).fill(0).map(() => new Array(3).fill(0));
     for (let j = 0; j < 64; j++) {
