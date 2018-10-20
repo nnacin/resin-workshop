@@ -1,5 +1,6 @@
 const senseHat = require('node-sense-hat');
 const imu = require("node-sense-hat").Imu;
+const sense = require("sense-hat-led").sync;
 const moment = require('moment');
 
 const O = [0, 0, 0];
@@ -108,15 +109,18 @@ senseHat.Joystick.getJoystick().then(joystick => {
                         console.error("Could not read sensor data: ", err);
                         return;
                     }
-                    console.log("Temperature is: ", data.temperature);
+                    console.log("Temperature is: ", Math.round(data.temperature));
+                    sense = SenseHat()
                 });
+                sense.showLetter("B");
                 break;
             case 'left':
                 clearInterval(daysInterval);
                 senseHat.Leds.clear([0, 0, 0]);
                 IMU.getValue((err, data) => {
-                    console.log("Humidity is: ", data.humidity);
+                    console.log("Humidity is: ", Math.round(data.humidity));
                 });
+                sense.showLetter("A");
                 break;
             case 'click':
                 daysInterval = setInterval(drawScreen, 5000);
