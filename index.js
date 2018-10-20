@@ -83,16 +83,35 @@ const drawScreen = () => {
     const dayOfWeek = moment().format('dddd');
     const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-    //senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
-    senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
+    senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
+    //senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
 
 };
+
+// Refresh the screen every 2 seconds
+let daysInterval = setInterval(drawScreen, 2000);
 
 senseHat.Joystick.getJoystick().then(joystick => {
     joystick.on("press", direction => {
         console.log("Joystick pressed in " + direction + " direction");
+        switch (direction) {
+            case 'right':
+                clearInterval(daysInterval);
+                senseHat.Leds.clear([127, 0, 0]);
+                senseHat.Imu.IMU().getValue((err, data) => {
+                    console.log("Temperature is: ", data.temperature);
+                });
+                break;
+            case 'left':
+                clearInterval(daysInterval);
+                senseHat.Leds.clear([127, 0, 0]);
+                senseHat.Imu.IMU().getValue((err, data) => {
+                    console.log("Humidity is: ", data.humidity);
+                });
+                break;
+            case 'click':
+                daysInterval = setInterval(drawScreen, 2000);
+                break;
+        }
     });
 });
-
-// Refresh the screen every 2 seconds
-setInterval(drawScreen, 2000);
