@@ -229,7 +229,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                     senseHat.Leds.setPixels(Rdigit);
                     setTimeout(function() {
                         senseHat.Leds.setPixels(Ldigit);
-                    }), 5000)
+                    }, 5000);
 
 
                     senseHat.Leds.setPixels(matrix);
