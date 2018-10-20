@@ -5,6 +5,111 @@ const moment = require('moment');
 
 const O = [0, 0, 0];
 const X = [255, 0, 0];
+const X2 = [0, 0, 255];
+
+
+const numbers = {
+    0: [
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+    ],
+    1: [
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+    ],
+    2: [
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, X2, O, O, O,
+        O, O, O, O, X2, O, O, O,
+        O, O, O, O, X2, O, O, O,
+        O, O, O, O, X2, X2, X2, X2,
+    ],
+    3: [
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, X2, X2, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+    ],
+    4: [
+        O, O, O, O, X2, O, O, O,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+    ],
+    5: [
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, X2, O, O, O,
+        O, O, O, O, X2, O, O, O,
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+    ],
+    6: [
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, X2, O, O, O,
+        O, O, O, O, X2, O, O, O,
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+    ],
+    7: [
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, X2, O,
+        O, O, O, O, O, O, X2, O,
+        O, O, O, O, O, X2, O, O,
+        O, O, O, O, O, X2, O, O,
+        O, O, O, O, X2, O, O, O,
+    ],
+    8: [
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+    ],
+    9: [
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, O, O, O, X2,
+        O, O, O, O, X2, X2, X2, X2,
+    ],
+};
 
 const daysOfWeek = {
     'Monday': [
@@ -79,6 +184,11 @@ const daysOfWeek = {
     ]
 };
 
+const shiftRow = (arr, row) => {
+    arr[row - 1].unshift(arr[row - 1].pop());
+    return arr;
+};
+
 const drawScreen = () => {
 
     const dayOfWeek = moment().format('dddd');
@@ -109,17 +219,34 @@ senseHat.Joystick.getJoystick().then(joystick => {
                         console.error("Could not read sensor data: ", err);
                         return;
                     }
+                    const temp = Math.round(data.temperature);
+                    const R = temp % 10;
+                    const Rdigit = numbers[R];
+
+                    const L = Math.floot(temp / 10;
+                    const Ldigit = shiftRow(numbers[L], 4);
+
+                    senseHat.Leds.setPixels(Rdigit);
+                    setTimeout(function() {
+                        senseHat.Leds.setPixels(Ldigit);
+                    }), 5000)
+
+
+                    senseHat.Leds.setPixels(matrix);
                     console.log("Temperature is: ", Math.round(data.temperature));
                 });
-                sense.showLetter("B");
                 break;
             case 'left':
                 clearInterval(daysInterval);
                 senseHat.Leds.clear([0, 0, 0]);
                 IMU.getValue((err, data) => {
+                    const humid = Math.round(data.humidity);
+                    const R = humid % 10;
+                    const L = Math.floot(humid / 10;
+
+                    senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
                     console.log("Humidity is: ", Math.round(data.humidity));
                 });
-                sense.showLetter("A");
                 break;
             case 'click':
                 daysInterval = setInterval(drawScreen, 5000);
