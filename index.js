@@ -80,11 +80,14 @@ const daysOfWeek = {
 const drawScreen = () => {
     senseHat.Leds.clear([127, 0, 0]);
 
-    const dayOfWeek = moment().format('dddd');
-    const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    setTimeout(function() {
+        const dayOfWeek = moment().format('dddd');
+        const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-    //senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
-    senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
+        //senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
+        senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
+    }, 5000)
+
 
 };
 
