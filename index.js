@@ -97,7 +97,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
         switch (direction) {
             case 'right':
                 console.log("RIGHT!")
-                clearInterval(daysInterval);
+                //clearInterval(daysInterval);
                 senseHat.Leds.clear([127, 0, 0]);
                 senseHat.Imu.IMU().getValue((err, data) => {
                     console.log("IN!")
