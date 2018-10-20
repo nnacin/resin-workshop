@@ -88,5 +88,11 @@ const drawScreen = () => {
 
 };
 
+senseHat.Joystick.getJoystick().then(joystick => {
+    joystick.on("press", direction => {
+        console.log("Joystick pressed in " + direction + " direction");
+    });
+});
+
 // Refresh the screen every 2 seconds
 setInterval(drawScreen, 2000);
