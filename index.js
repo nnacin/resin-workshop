@@ -100,6 +100,11 @@ senseHat.Joystick.getJoystick().then(joystick => {
                 clearInterval(daysInterval);
                 senseHat.Leds.clear([127, 0, 0]);
                 senseHat.Imu.IMU().getValue((err, data) => {
+                    console.log("IN!")
+                    if (err !== null) {
+                        console.error("Could not read sensor data: ", err);
+                        return;
+                    }
                     console.log("Temperature is: ", data.temperature);
                 });
                 break;
