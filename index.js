@@ -110,7 +110,6 @@ senseHat.Joystick.getJoystick().then(joystick => {
                         return;
                     }
                     console.log("Temperature is: ", Math.round(data.temperature));
-                    sense = SenseHat()
                 });
                 sense.showLetter("B");
                 break;
