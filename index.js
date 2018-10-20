@@ -79,15 +79,13 @@ const daysOfWeek = {
 };
 
 const drawScreen = () => {
-    senseHat.Leds.clear([0, 0, 0]);
 
-    setTimeout(function() {
-        const dayOfWeek = moment().format('dddd');
-        const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    const dayOfWeek = moment().format('dddd');
+    const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-        //senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
-        senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
-    }, 5000)
+    //senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
+    senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
+
     senseHat.Leds.clear([0, 0, 0]);
 
 };
@@ -102,7 +100,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
         switch (direction) {
             case 'right':
                 clearInterval(daysInterval);
-
+                senseHat.Leds.clear([0, 0, 0]);
                 IMU.getValue((err, data) => {
                     if (err !== null) {
                         console.error("Could not read sensor data: ", err);
@@ -113,7 +111,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                 break;
             case 'left':
                 clearInterval(daysInterval);
-
+                senseHat.Leds.clear([0, 0, 0]);
                 IMU.getValue((err, data) => {
                     console.log("Humidity is: ", data.humidity);
                 });
