@@ -235,8 +235,14 @@ senseHat.Joystick.getJoystick().then(joystick => {
                     setTimeout(function() {
                         senseHat.Leds.setPixels(Ldigit);
                     }, 5000); */
-                    const matrix = Rdigit || Ldigit;
-                    senseHat.Leds.setPixels(matrix)
+
+                    let matrix = [[],[]]
+                    for (let j = 0; j < 64; j++) {
+                        for (let k = 0; k < 3; k++) {
+                           matrix[j][k] = Rdigit[j][k] || Ldigit[j][k];
+                        }
+                    }
+                    senseHat.Leds.setPixels(matrix);
 
 
                     console.log("Temperature is: ", Math.round(data.temperature));
