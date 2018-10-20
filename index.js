@@ -236,7 +236,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                         senseHat.Leds.setPixels(Ldigit);
                     }, 5000); */
 
-                    let matrix = [[],[]]
+                    let matrix = new Array(64).fill(0).map(() => new Array(3).fill(0));
                     for (let j = 0; j < 64; j++) {
                         for (let k = 0; k < 3; k++) {
                            matrix[j][k] = Rdigit[j][k] || Ldigit[j][k];
