@@ -1,4 +1,5 @@
 const senseHat = require('node-sense-hat');
+const imu = require("node-sense-hat").Imu;
 const moment = require('moment');
 
 const O = [0, 0, 0];
@@ -92,7 +93,8 @@ const drawScreen = () => {
 };
 
 // Refresh the screen every 2 seconds
-//let daysInterval = setInterval(drawScreen, 2000);
+let daysInterval = setInterval(drawScreen, 2000);
+const IMU = new imu.IMU();
 
 senseHat.Joystick.getJoystick().then(joystick => {
     joystick.on("press", direction => {
@@ -102,7 +104,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                 console.log("RIGHT!")
                 //clearInterval(daysInterval);
                 senseHat.Leds.clear([127, 0, 0]);
-                senseHat.Imu.IMU().getValue((err, data) => {
+                IMU.getValue((err, data) => {
                     console.log("IN!")
                     if (err !== null) {
                         console.error("Could not read sensor data: ", err);
@@ -114,7 +116,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
             case 'left':
                 clearInterval(daysInterval);
                 senseHat.Leds.clear([127, 0, 0]);
-                senseHat.Imu.IMU().getValue((err, data) => {
+                IMU.getValue((err, data) => {
                     console.log("Humidity is: ", data.humidity);
                 });
                 break;
@@ -125,22 +127,3 @@ senseHat.Joystick.getJoystick().then(joystick => {
     });
 });
 
-const imu = require("node-sense-hat").Imu;
-
-const IMU = new imu.IMU();
-
-IMU.getValue((err, data) => {
-    if (err !== null) {
-        console.error("Could not read sensor data: ", err);
-        return;
-    }
-
-    console.log("Accelleration is: ", JSON.stringify(data.accel, null, "  "));
-    console.log("Gyroscope is: ", JSON.stringify(data.gyro, null, "  "));
-    console.log("Compass is: ", JSON.stringify(data.compass, null, "  "));
-    console.log("Fusion data is: ", JSON.stringify(data.fusionPose, null, "  "));
-
-    console.log("Temp is: ", data.temperature);
-    console.log("Pressure is: ", data.pressure);
-    console.log("Humidity is: ", data.humidity);
-});
