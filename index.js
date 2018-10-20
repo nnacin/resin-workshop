@@ -1,11 +1,21 @@
-// Using the standalone hw-specific library
-const matrix = require('sense-hat-led');
-// Using this library
-const matrix = require('node-sense-hat').Leds;
+const senseHat = require('node-sense-hat');
+const _ = require('lodash');
 
-const x = 3;
-const y = 3;
-const red = [255, 0, 0];
+const drawScreen = () => {
+    senseHat.Leds.clear();
 
-// Set a single pixel
-matrix.setPixel(x, y, red);
+    x = 0;
+    y = 0;
+    while (y < 8) {
+        while (x < 8) {
+            senseHat.Leds.setPixel(x, y, [_.random(0, 255), _.random(0, 255), _.random(0, 255)]);
+            x += 1;
+        }
+        x = 0;
+        y += 1;
+    }
+
+};
+
+// Refresh the screen every 2 seconds
+setInterval(drawScreen, 2000);
