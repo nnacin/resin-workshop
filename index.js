@@ -86,5 +86,5 @@ const drawScreen = () => {
 
 };
 
-// Refresh the screen every 1 hour
-setInterval(drawScreen, 3600000);
+// Refresh the screen every 2 seconds
+setInterval(drawScreen, 2000);
