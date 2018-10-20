@@ -207,6 +207,26 @@ const drawScreen = () => {
 let daysInterval = setInterval(drawScreen, 5000);
 const IMU = new imu.IMU();
 
+const showValue = (data) => {
+    const R = data % 10;
+    const Rdigit = numbers[R];
+
+    const L = Math.floor(data / 10);
+    for (let i = 0; i < 4; i++) {
+        const el = numbers[L].shift();
+        numbers[L].push(el);
+    }
+    const Ldigit = numbers[L];
+
+    let matrix = new Array(64).fill(0).map(() => new Array(3).fill(0));
+    for (let j = 0; j < 64; j++) {
+        for (let k = 0; k < 3; k++) {
+            matrix[j][k] = Rdigit[j][k] || Ldigit[j][k];
+        }
+    }
+    senseHat.Leds.setPixels(matrix);
+};
+
 senseHat.Joystick.getJoystick().then(joystick => {
     joystick.on("press", direction => {
         console.log("Joystick pressed in " + direction + " direction");
@@ -219,30 +239,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                         console.error("Could not read sensor data: ", err);
                         return;
                     }
-                    const temp = Math.round(data.temperature);
-                    const R = temp % 10;
-                    const Rdigit = numbers[R];
-
-                    const L = Math.floor(temp / 10);
-                    // const Ldigit = shiftRow(numbers[L], 4);
-                    for (let i = 0; i < 4; i++) {
-                        const el = numbers[L].shift();
-                        numbers[L].push(el);
-                    }
-                    const Ldigit = numbers[L];
-
-                    /*  senseHat.Leds.setPixels(Rdigit);
-                    setTimeout(function() {
-                        senseHat.Leds.setPixels(Ldigit);
-                    }, 5000); */
-
-                    let matrix = new Array(64).fill(0).map(() => new Array(3).fill(0));
-                    for (let j = 0; j < 64; j++) {
-                        for (let k = 0; k < 3; k++) {
-                           matrix[j][k] = Rdigit[j][k] || Ldigit[j][k];
-                        }
-                    }
-                    senseHat.Leds.setPixels(matrix);
+                    showValue(Math.round(data.temperature));
 
 
                     console.log("Temperature is: ", Math.round(data.temperature));
@@ -252,9 +249,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                 clearInterval(daysInterval);
                 senseHat.Leds.clear([0, 0, 0]);
                 IMU.getValue((err, data) => {
-                    const humid = Math.round(data.humidity);
-                    const R = humid % 10;
-                    const L = Math.floor(humid / 10);
+                    showValue(Math.round(data.humidity));
 
                     console.log("Humidity is: ", Math.round(data.humidity));
                 });
