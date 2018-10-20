@@ -205,13 +205,12 @@ const drawScreen = () => {
 let daysInterval = setInterval(drawScreen, 5000);
 const IMU = new imu.IMU();
 
-let L = -1;
 const showValue = (data) => {
 
     const R = data % 10;
     const Rdigit = numbers[R];
 
-    L = Math.floor(data / 10);
+    const L = Math.floor(data / 10);
     const clonedNumber = Object.assign([], numbers[L]);
     for (let i = 0; i < 4; i++) {
         const el = clonedNumber.shift();
