@@ -242,7 +242,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                 IMU.getValue((err, data) => {
                     const humid = Math.round(data.humidity);
                     const R = humid % 10;
-                    const L = Math.floot(humid / 10;
+                    const L = Math.floor(humid / 10);
 
                     senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
                     console.log("Humidity is: ", Math.round(data.humidity));
