@@ -83,8 +83,8 @@ const drawScreen = () => {
     const dayOfWeek = moment().format('dddd');
     const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-    senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
-    //senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
+    //senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
+    senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
 
 };
 
