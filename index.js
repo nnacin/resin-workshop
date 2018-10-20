@@ -86,7 +86,9 @@ const drawScreen = () => {
     //senseHat.Leds.setPixels(daysOfWeek[dayOfWeek]);
     senseHat.Leds.setPixels(daysOfWeek[DAYS[Math.floor(Math.random()*6)]]);
 
-    senseHat.Leds.clear([0, 0, 0]);
+    setTimeout(function() {
+        senseHat.Leds.clear([0, 0, 0]);
+    }, 5000)
 
 };
 
