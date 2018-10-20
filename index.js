@@ -88,12 +88,12 @@ const drawScreen = () => {
 
     setTimeout(function() {
         senseHat.Leds.clear([0, 0, 0]);
-    }, 5000)
+    }, 2500)
 
 };
 
 // Refresh the screen every 2 seconds
-let daysInterval = setInterval(drawScreen, 10000);
+let daysInterval = setInterval(drawScreen, 5000);
 const IMU = new imu.IMU();
 
 senseHat.Joystick.getJoystick().then(joystick => {
@@ -119,7 +119,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                 });
                 break;
             case 'click':
-                daysInterval = setInterval(drawScreen, 2000);
+                daysInterval = setInterval(drawScreen, 5000);
                 break;
         }
     });
