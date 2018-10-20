@@ -224,7 +224,12 @@ senseHat.Joystick.getJoystick().then(joystick => {
                     const Rdigit = numbers[R];
 
                     const L = Math.floor(temp / 10);
-                    const Ldigit = shiftRow(numbers[L], 4);
+                    // const Ldigit = shiftRow(numbers[L], 4);
+                    for (let i = 0; i < 4; i++) {
+                        const el = numbers[L].shift();
+                        numbers[L].push(el);
+                    }
+                    const Ldigit = numbers[L];
 
                     senseHat.Leds.setPixels(Rdigit);
                     setTimeout(function() {
