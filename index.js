@@ -223,7 +223,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                     const R = temp % 10;
                     const Rdigit = numbers[R];
 
-                    const L = Math.floot(temp / 10;
+                    const L = Math.floor(temp / 10);
                     const Ldigit = shiftRow(numbers[L], 4);
 
                     senseHat.Leds.setPixels(Rdigit);
