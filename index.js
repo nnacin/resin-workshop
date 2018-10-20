@@ -101,11 +101,9 @@ senseHat.Joystick.getJoystick().then(joystick => {
         console.log("Joystick pressed in " + direction + " direction");
         switch (direction) {
             case 'right':
-                console.log("RIGHT!")
-                //clearInterval(daysInterval);
-                senseHat.Leds.clear([127, 0, 0]);
+                clearInterval(daysInterval);
+                senseHat.Leds.clear([0, 0, 0]);
                 IMU.getValue((err, data) => {
-                    console.log("IN!")
                     if (err !== null) {
                         console.error("Could not read sensor data: ", err);
                         return;
@@ -115,7 +113,7 @@ senseHat.Joystick.getJoystick().then(joystick => {
                 break;
             case 'left':
                 clearInterval(daysInterval);
-                senseHat.Leds.clear([127, 0, 0]);
+                senseHat.Leds.clear([0, 0, 0]);
                 IMU.getValue((err, data) => {
                     console.log("Humidity is: ", data.humidity);
                 });
